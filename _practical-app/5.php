@@ -12,10 +12,24 @@
 <article class="main-content col-xs-8">
 
 	
-	<?php 
+  <?php 
+  
+  $number = 100;
+  echo sqrt($number);
 
+  echo "<br>";
+
+  $string = "I am the stringest";
+  echo strtoupper($string);
+
+  echo "<br>";
+
+  $array = [10,6,3,8,4,2,"Arnold","Tyrone"];
+  sort($array);
+  print_r($array);
 
 /*  Step1: Use a pre-built math function here and echo it
+
 
 
 	Step 2:  Use a pre-built string function here and echo it
