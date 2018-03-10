@@ -1,4 +1,17 @@
 <?php include "functions.php"; ?>
+
+<?php
+// Set cookie properties 
+$name = "Kage";
+$value = "Grela_gode_kager";
+$time = time() + 86400 * 7;
+setcookie($name, $value, $time);
+
+session_start();
+$_SESSION['trouble'] = "ORANG :(";
+
+?>
+
 <?php include "includes/header.php";?>
 
 
@@ -15,8 +28,25 @@
 
 			<article class="main-content col-xs-8">
 			
-		
-	
+		<a href="9.php?id=1&parameter=freedom" class="btn btn-info">Click Here</a>
+
+  <?php
+
+  $g = $_GET;
+  $id = $g[id];
+  $param = $g[parameter];
+
+  if (isset($id)) {
+  echo "Number" . $id . " is: ";
+  echo $param;
+  echo "<br>";
+  }
+ 
+
+  echo $_SESSION['trouble'];
+  ?>
+
+
 	<?php 
 
 	/*  Create a link saying Click Here, and set 
