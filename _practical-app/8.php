@@ -1,6 +1,8 @@
 <?php include "functions.php"; ?>
 <?php include "includes/header.php";?>
 
+
+
 	<section class="content">
 
 		<aside class="col-xs-4">
@@ -14,10 +16,24 @@
 		
 	<article class="main-content col-xs-8">
 	
-	
+
+<?php
+
+  $text = "Denne teksten skal krypteres";
+  $salt = "iusesomecrazystrings22";
+
+  $encryptedText = crypt($text, $salt);
+  echo $encryptedText;
+
+?>
+
 	<?php  
 
-	/*  Step 1 -Make a variable with some text as value
+
+
+  /*  Step 1 -Make a variable with some text as value
+  
+ 
 
 		Step 2 - Use crypt() function to encrypt it
 
