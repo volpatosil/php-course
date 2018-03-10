@@ -1,4 +1,29 @@
 <?php include "functions.php"; ?>
+<?php 
+
+class Dog {
+  var $name = "Ringo";
+  var $eyeColor = "Black";
+  var $nose = 1;
+  var $fur = "Golden";
+  function ShowAll() {
+    echo "Name: " . $this->name;
+    echo "<br>";
+    echo "Eye Color: " . $this->eyeColor;
+    echo "<br>";
+    echo "Nose-size: " . $this->nose;
+    echo "<br>";
+    echo "Fur color: " . $this->fur;
+  }
+}
+
+$pitbull = new Dog();
+$pitbull->name = "Boxer";
+$pitbull->nose = 2;
+$pitbull->fur = "Grey";
+
+?>
+
 <?php include "includes/header.php";?>
 <section class="content">
 
@@ -11,6 +36,11 @@
 
 <article class="main-content col-xs-8">
 
+<?php
+
+$pitbull->ShowAll();
+
+?>
 	
 	<?php  
 
