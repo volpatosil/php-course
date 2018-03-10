@@ -1,4 +1,25 @@
 <?php include "functions.php"; ?>
+
+<?php
+
+  $connection = mysqli_connect("localhost","root","root","practical-database");
+
+  // Check connection
+  if (mysqli_connect_errno())
+    {
+    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    }
+
+  $query = "SELECT * FROM practical_table";
+  $result = mysqli_query($connection, $query);
+
+  if(!$result) {
+    die('Query FAILED' . msqli_error());
+  }
+
+
+?>
+
 <?php include "includes/header.php";?>
     
 
@@ -14,9 +35,18 @@
 
 	<article class="main-content col-xs-8">
 	
+  <?php 
+  echo "<br>";
+  while($row = mysqli_fetch_assoc($result)) {
+    echo "<br>";
+    /* print_r($row); */
+    echo $row[problem] . ": " . $row[number];
+  }
+  ?>
 	
-	
-	<?php  
+  <?php  
+  
+
 
 	/*  Step 1 - Create a database in PHPmyadmin
 
