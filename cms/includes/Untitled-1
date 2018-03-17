@@ -1,0 +1,18 @@
+Server Live Directory:
+/var/www/luftehund.no
+
+Server Repository
+~/repo/luftehund.git
+
+cd /var
+mkdir repo && cd repo
+mkdir luftehund.git && cd luftehund.git
+git init --bare
+
+
+
+#!/bin/sh
+git --work-tree=/var/www/luftehund.no --git-dir=~/repo/luftehund.git checkout -f
+
+
+git remote add live ssh://kodefant@luftehund.no/~/repo/luftehund.git
