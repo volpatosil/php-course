@@ -39,9 +39,6 @@ switch($source){
   include "includes/edit_post.php";
   break;
 
-  case 'edit_';
-  echo "NICE 200";
-  break;
 
   default:
   include "includes/view_all_posts.php";

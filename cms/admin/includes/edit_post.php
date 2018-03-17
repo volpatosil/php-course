@@ -7,6 +7,7 @@ if(isset($_GET['p_id'])) {
   $query = "SELECT * FROM posts WHERE post_id = $the_post_id";
   $select_posts_by_id = mysqli_query($connection, $query);
 
+
   while($row = mysqli_fetch_assoc($select_posts_by_id)) {
     $post_id = $row['post_id'];
     $post_title = $row['post_title'];
@@ -18,8 +19,16 @@ if(isset($_GET['p_id'])) {
     $post_tags = $row['post_tags'];
     $post_comment_count = $row['post_comment_count'];
     $post_date = $row['post_date'];
+    $post_views_count = $row['post_views_count'];
+    
 
 }
+
+  if(isset($_POST['reset_views'])) {
+    $query = "UPDATE posts SET post_views_count = '0' WHERE post_id = $the_post_id";
+    $post_views_count_reset = mysqli_query($connection, $query);
+    header("Location: posts.php?source=edit_post&p_id=$the_post_id");
+  }
 
   if(isset($_POST['update_post'])) {
     $post_author = $_POST['post_author'];
@@ -69,6 +78,11 @@ if(isset($_GET['p_id'])) {
     <div class="form-group">
       <label for="post_title">Post Title</label>
       <input value="<?php  echo $post_title; ?>" type="text" class="form-control" name="post_title">
+    </div>
+
+    <div class="form-group">
+      <label>View Count: <?php echo $post_views_count; ?></label><br>
+      <input class="btn btn-xs btn-warning" type="submit" name="reset_views" value="Reset views">
     </div>
 
     <div class="form-group">
@@ -124,6 +138,8 @@ if(isset($_GET['p_id'])) {
       <label for="post_content">Post Content</label>
       <textarea class="form-control" name="post_content" id="body" cols="30" rows="10"><?php echo $post_content ?></textarea>
     </div>
+
+
 
     <div class="form-group">
       <input class="btn btn-primary" type="submit" name="update_post" value="Update Post">
