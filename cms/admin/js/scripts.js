@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 });
 
-function loadUsersOnline () {
+function loadUsersOnline() {
   $.get("functions.php?onlineusers=result", function(data) {
     $(".usersonline").text(data);
   });
@@ -39,6 +39,8 @@ function loadUsersOnline () {
 setInterval(function() {
   loadUsersOnline();
 }, 500);
+  
+
 
 
 
