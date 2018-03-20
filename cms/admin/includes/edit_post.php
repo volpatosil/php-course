@@ -98,9 +98,12 @@ if(isset($_GET['p_id'])) {
             while($row = mysqli_fetch_assoc($select_categories)) {
               $cat_id = $row['cat_id'];
               $cat_title = $row['cat_title'];
+          if ($cat_id != $post_category_id) {
               echo "<option value='{$cat_id}'>{$cat_title}</option>";
+          } else if($cat_id == $post_category_id) {
+              echo "<option selected value='{$cat_id}'>{$cat_title}</option>";
             }
-        
+        }
         ?>
 
       </select>
