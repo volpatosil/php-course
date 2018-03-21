@@ -99,6 +99,21 @@ global $connection;
   }
 }
 
+// Retrieves all entries from a MySQL table and return the number of rows
+function recordCount($table) {
+  global $connection;
+  $query = "SELECT * FROM {$table}";
+  $select_all_post = mysqli_query($connection, $query);
+  $result = mysqli_num_rows($select_all_post);
+  confirm($result);
+  return $result;
+}
 
+function checkStatus($table, $column, $status) {
+  global $connection;
+  $query = "SELECT * FROM {$table} WHERE {$column} = '{$status}'";
+  $result = mysqli_query($connection, $query);
+  return mysqli_num_rows($result); 
+}
 
 ?>
