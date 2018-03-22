@@ -194,21 +194,15 @@ if(isset($_POST['checkBoxArray'])) {
       echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"></td>';
 
       ?>
+
       </form>
+
       <?php
         echo "<td><a href='posts.php?reset={$post_id}'>{$post_views_count}</td>";
         echo "</tr>";
 
       }
-              
-
-
-
-
-
-
-
-              ?>
+      ?>
 
     </tbody>
   </table>

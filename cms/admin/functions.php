@@ -60,16 +60,17 @@ global $connection;
     if($cat_title == "" || empty($cat_title)) {
       echo "This field should not be empty";
     } else {
-      $query = "INSERT INTO categories(cat_title) ";
-      $query .= "VALUE('{$cat_title}') ";
+      $stmt = mysqli_prepare($connection, "INSERT INTO categories(cat_title) VALUES(?)");
+     
+      mysqli_stmt_bind_param($stmt, 's', $cat_title);
 
-      $create_category_query = mysqli_query($connection, $query);
+      mysqli_stmt_execute($stmt);
 
-      if(!$create_category_query) {
+      if(!$stmt) {
         die('QUERY FAILED' . mysqli_error($connection));
       }
     }
-
+mysqli_stmt_close($stmt);
   }
 }
 
