@@ -3,6 +3,27 @@
 function redirect($location)
 {
   return header("Location: {$location}");
+  exit;
+}
+
+function IfItIsMethod($method = null) {
+  if($_SERVER['REQUEST_METHOD'] == strtoupper($method)) {
+    return true;
+  }
+  return false;
+}
+
+function isLoggedIn() {
+  if(isset($_SESSION['user_role'])) {
+    return true;
+  }
+  return false;
+}
+
+function checkIfUserIsLoggedInAndRedirect($redirectLocation = null) {
+  if(isloggedIn()) {
+    redirect($redirectLocation);
+  }
 }
 
 function escape($string) {
@@ -176,16 +197,18 @@ $username = escape($username);
 $email = escape($email);
 $password = escape($password);
 
-$query = "SELECT randSalt FROM users";
+$password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12));
+
+/* $query = "SELECT randSalt FROM users";
 $select_randsalt_query = mysqli_query($connection, $query);
 
 if (!$select_randsalt_query) {
   die('Query Failed' . mysqli_error($connection));
-}
+} */
 
-$row = mysqli_fetch_array($select_randsalt_query);
+/* $row = mysqli_fetch_array($select_randsalt_query);
 $salt = $row['randSalt'];
-$password = crypt($password, $salt);
+$password = crypt($password, $salt); */
 
 $query = "INSERT INTO users (username, user_email, user_password, user_role) ";
 $query .= "VALUES ('{$username}', '{$email}', '{$password}', 'subscriber')";
@@ -208,23 +231,26 @@ function login_user($username, $password) {
     die('QUERY FAILED' . mysqli_error($connection));
   }
   while ($row = mysqli_fetch_array($select_user_query)) {
-    $db_user_id = $row['user_id'];
-    $db_username = $row['username'];
-    $db_user_password = $row['user_password'];
-    $db_user_firstname = $row['user_firstname'];
-    $db_user_lastname = $row['user_lastname'];
-    $db_user_role = $row['user_role'];
+    $db_user_id         = escape($row['user_id']);
+    $db_username        = escape($row['username']);
+    $db_user_password   = escape($row['user_password']);
+    $db_user_firstname  = escape($row['user_firstname']);
+    $db_user_lastname   = escape($row['user_lastname']);
+    $db_user_role       = escape($row['user_role']);
+
+    /*   $password = crypt($password, $db_user_password); */
+    if (password_verify($password, $db_user_password)) {
+      $_SESSION['username'] = $db_username;
+      $_SESSION['firstname'] = $db_user_firstname;
+      $_SESSION['lastname'] = $db_user_lastname;
+      $_SESSION['user_role'] = $db_user_role;
+      redirect("/admin");
+    } else {
+      return false;
+    }
   }
-  $password = crypt($password, $db_user_password);
-  if ($username === $db_username && $password === $db_user_password) {
-    $_SESSION['username'] = $db_username;
-    $_SESSION['firstname'] = $db_user_firstname;
-    $_SESSION['lastname'] = $db_user_lastname;
-    $_SESSION['user_role'] = $db_user_role;
-    redirect("/admin");
-  } else {
-    redirect("/index.php");
-  }
+  return true;
+
 }
 
 ?>
