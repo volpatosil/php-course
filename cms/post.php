@@ -98,8 +98,6 @@
               if(!$create_comment_query) {
                 die('QUERY FAILED' . $mysqli_error($connection));
               }
-            } else {
-              echo "<script>alert('Fields cannot be empty');</script>";
             }
 
           }
@@ -157,8 +155,7 @@
             </div>
           </div>
 
-          <?php } }
-    } else {
+          <?php } } } else {
           header("Location: index.php");
           } ?>
 

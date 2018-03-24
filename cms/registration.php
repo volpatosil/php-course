@@ -3,6 +3,19 @@
 
 <?php 
 
+require 'vendor/autoload.php';
+
+$dotenv = new \Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+$options = array(
+  'cluster' => 'eu',
+  'encrypted' => true
+);
+
+$pusher = new Pusher\Pusher(getenv('APP_KEY'), getenv('APP_SECRET'), getenv('APP_ID'), $options);
+
+
 if(isset($_POST['register'])) {
 
   $username = trim($_POST['username']);
@@ -46,6 +59,10 @@ if(isset($_POST['register'])) {
 
   if(empty($error)) {
     register_user($username, $email, $password);
+
+    $data['message'] = $username;
+
+    $pusher->trigger('notifications', 'new_user', $data);
 
     login_user($username, $password);
 
