@@ -1,3 +1,3 @@
-.env
-/js/
-/vendor/
+/cms/.env
+cms/js/
+cms//vendor/
