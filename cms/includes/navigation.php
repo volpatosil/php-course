@@ -49,7 +49,7 @@
             <a href="/admin">Admin</a>
           </li>
           <li>
-            <a href="/includes/logout.php">Admin</a>
+            <a href="/includes/logout.php">Logout</a>
           </li>
 
             <?php else: ?>

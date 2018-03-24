@@ -1,5 +1,13 @@
 <?php
 
+function imagePlaceholder($image ='') {
+  if(!$image) {
+    return 'placeholder.jpg';
+  } else {
+    return $image;
+  }
+}
+
 function redirect($location)
 {
   return header("Location: {$location}");
